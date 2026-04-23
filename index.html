@@ -4,225 +4,970 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>청춘℃ 유형 진단 — 당신은 지금 몇 도입니까</title>
+<meta property="og:title" content="청춘℃ 유형 진단 — 당신은 지금 몇 도입니까">
+<meta property="og:description" content="25개 항목으로 측정하는 당신의 엔트로피 위상. 고체, 액체, 기체, 플라즈마 — 당신은 어느 상태입니까.">
+<meta property="og:url" content="https://urania-s-uni.github.io/uraniasuni/">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#f7f5f2; color:#1a1a1a; font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif; min-height:100vh; }
-.wrap { max-width:660px; margin:0 auto; padding:48px 20px 100px; }
-.hd { text-align:center; margin-bottom:40px; padding-bottom:28px; border-bottom:1px solid #e0dbd4; }
-.hd-tag { font-size:11px; letter-spacing:.22em; color:#c8440a; text-transform:uppercase; margin-bottom:14px; }
-.hd h1 { font-size:clamp(22px,5vw,32px); font-weight:700; line-height:1.35; margin-bottom:14px; color:#1a1a1a; }
-.hd h1 em { color:#c8440a; font-style:normal; }
-.hd p { font-size:14px; color:#888; line-height:1.7; }
-.prog { height:2px; background:#e0dbd4; margin-bottom:28px; border-radius:1px; overflow:hidden; }
-.prog-fill { height:100%; background:#c8440a; transition:width .3s; }
-.sec-label { font-size:11px; letter-spacing:.18em; color:#aaa; text-transform:uppercase; margin-bottom:14px; }
-.list { display:flex; flex-direction:column; gap:8px; margin-bottom:32px; }
-.item { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:#fff; border:1px solid #e8e3dc; border-radius:8px; cursor:pointer; transition:all .15s; user-select:none; }
-.item:hover { border-color:#d0c9c0; background:#fdfcfb; }
-.item.on { border-color:#c8440a; background:#fef4f0; }
-.box { width:18px; height:18px; min-width:18px; border:1.5px solid #ccc; border-radius:3px; margin-top:2px; display:flex; align-items:center; justify-content:center; transition:all .15s; flex-shrink:0; }
-.item.on .box { background:#c8440a; border-color:#c8440a; }
-.chk { opacity:0; transition:opacity .15s; }
-.item.on .chk { opacity:1; }
-.item-title { font-size:14px; font-weight:700; color:#1a1a1a; margin-bottom:4px; }
-.item-body { font-size:13px; line-height:1.65; color:#666; }
-.item.on .item-title { color:#1a1a1a; }
-.item.on .item-body { color:#555; }
-.btn { width:100%; padding:17px; background:#c8440a; color:#fff; border:none; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; transition:all .15s; margin-bottom:12px; letter-spacing:.02em; }
-.btn:hover { background:#e8650a; transform:translateY(-1px); }
-.btn:disabled { background:#ddd; color:#aaa; cursor:not-allowed; transform:none; }
-.hint { text-align:center; font-size:12px; color:#aaa; }
-.result { display:none; }
-.rcard { background:#fff; border:1px solid #e8e3dc; border-radius:12px; overflow:hidden; margin-bottom:24px; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
-.rhead { padding:30px 28px 24px; border-bottom:1px solid #e8e3dc; background:#fdfcfb; }
-.rzone { font-size:11px; letter-spacing:.22em; color:#c8440a; text-transform:uppercase; margin-bottom:10px; }
-.rtype { font-size:clamp(24px,5.5vw,36px); font-weight:900; margin-bottom:8px; color:#1a1a1a; }
-.rtag { font-size:14px; color:#888; font-style:italic; }
-.rbody { padding:28px; }
-.rdesc { font-size:14px; line-height:1.95; color:#555; margin-bottom:24px; white-space:pre-line; }
-.rch { padding:20px; background:#fef4f0; border:1px solid rgba(200,68,10,.2); border-radius:8px; }
-.rch-lbl { font-size:10px; letter-spacing:.18em; color:#c8440a; text-transform:uppercase; margin-bottom:8px; }
-.rch-title { font-size:15px; font-weight:700; margin-bottom:6px; color:#1a1a1a; }
-.rch-q { font-size:13px; color:#888; font-style:italic; line-height:1.6; }
-.share-row { display:flex; gap:10px; margin-bottom:16px; }
-.sbtn { flex:1; padding:14px; border:1px solid #e8e3dc; background:#fff; color:#1a1a1a; border-radius:8px; font-size:13px; cursor:pointer; transition:all .15s; display:flex; align-items:center; justify-content:center; gap:8px; font-family:inherit; }
-.sbtn:hover { border-color:#c8440a; color:#c8440a; }
-.rbtn { width:100%; padding:14px; background:transparent; border:1px solid #e8e3dc; color:#aaa; border-radius:8px; font-size:13px; cursor:pointer; transition:all .15s; font-family:inherit; }
-.rbtn:hover { border-color:#ccc; color:#666; }
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8e4dc;
+    --muted: rgba(232,228,220,0.45);
+    --accent: #c8a96e;
+    --danger: #e05a4e;
+    --check-active: #c8a96e;
+    --serif: 'Noto Serif KR', serif;
+    --sans: 'Noto Sans KR', sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.6;
+  }
+
+  /* HEADER */
+  .header {
+    padding: 80px 24px 60px;
+    text-align: center;
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .label-top {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .title-main {
+    font-family: var(--serif);
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.25s;
+  }
+
+  .title-main em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+
+  /* INSTRUCTIONS */
+  .instruction-block {
+    max-width: 640px;
+    margin: 60px auto 0;
+    padding: 0 24px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.55s;
+  }
+
+  .instruction-text {
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.8;
+    border-top: 1px solid var(--border);
+    padding-top: 28px;
+  }
+
+  .instruction-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* SECTIONS */
+  .sections-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 24px;
+  }
+
+  .section-block {
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .section-block.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .section-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: auto;
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  /* ITEMS */
+  .item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 4px;
+    padding: 14px 12px;
+    margin: 0 -12px;
+  }
+
+  .item:hover { background: rgba(255,255,255,0.03); }
+  .item:active { background: rgba(200,169,110,0.05); }
+
+  .item-check {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 3px;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .item-check::after {
+    content: '';
+    width: 6px;
+    height: 10px;
+    border-right: 2px solid var(--bg);
+    border-bottom: 2px solid var(--bg);
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.15s ease;
+    margin-top: -2px;
+  }
+
+  .item.checked .item-check {
+    background: var(--check-active);
+    border-color: var(--check-active);
+  }
+
+  .item.checked .item-check::after {
+    transform: rotate(45deg) scale(1);
+  }
+
+  .item-body {}
+
+  .item-name {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 5px;
+    transition: color 0.2s;
+  }
+
+  .item.checked .item-name { color: var(--accent); }
+
+  .item-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* COUNTER */
+  .counter-bar {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+    max-width: 100%;
+  }
+
+  .counter-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .counter-num {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 40px;
+    transition: color 0.3s;
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  .btn-diagnose {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.1s;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .btn-diagnose.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .btn-diagnose:active { transform: scale(0.97); }
+
+  /* RESULT */
+  .result-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--bg);
+    overflow-y: auto;
+  }
+
+  .result-overlay.show { display: block; }
+
+  .result-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+    animation: fadeUp 0.5s ease;
+  }
+
+  .result-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .result-score {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .result-state-label {
+    font-family: var(--serif);
+    font-size: clamp(36px, 8vw, 72px);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 8px;
+    letter-spacing: -0.03em;
+  }
+
+  .result-state-sub {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 48px;
+    letter-spacing: 0.08em;
+  }
+
+  .result-divider {
+    width: 48px;
+    height: 2px;
+    background: var(--accent);
+    margin-bottom: 40px;
+  }
+
+  .result-status-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .result-status-text {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 28px;
+    line-height: 1.4;
+  }
+
+  .result-body {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.9;
+    color: rgba(232,228,220,0.8);
+    margin-bottom: 48px;
+    white-space: pre-line;
+  }
+
+  .result-rx-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--danger);
+    margin-bottom: 12px;
+  }
+
+  .result-rx-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 24px;
+    line-height: 1.4;
+  }
+
+  .result-rx-body {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.9;
+    color: rgba(232,228,220,0.8);
+    white-space: pre-line;
+  }
+
+  .result-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+  }
+
+  .btn-share {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid rgba(200,169,110,0.4);
+    padding: 12px 24px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-share:hover {
+    background: rgba(200,169,110,0.08);
+    border-color: var(--accent);
+  }
+
+  .btn-retry {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 12px 24px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-retry:hover {
+    color: var(--text);
+    border-color: rgba(255,255,255,0.2);
+  }
+
+  .copy-toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--surface2);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    white-space: nowrap;
+    z-index: 300;
+  }
+
+  .copy-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* PLASMA color */
+  .state-plasma .result-state-label { color: #e05a4e; }
+  .state-plasma .result-divider { background: #e05a4e; }
+  .state-plasma .result-status-label { color: #e05a4e; }
+
+  /* GAS color */
+  .state-gas .result-state-label { color: #7baed4; }
+  .state-gas .result-divider { background: #7baed4; }
+  .state-gas .result-status-label { color: #7baed4; }
+
+  /* LIQUID color */
+  .state-liquid .result-state-label { color: #6bbfa0; }
+  .state-liquid .result-divider { background: #6bbfa0; }
+  .state-liquid .result-status-label { color: #6bbfa0; }
+
+  /* SOLID color */
+  .state-solid .result-state-label { color: var(--accent); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 480px) {
+    .section-desc { display: none; }
+    .result-state-label { font-size: 48px; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-<div id="quiz">
-  <div class="hd">
-    <div class="hd-tag">청춘℃ 유형 진단</div>
-    <h1>당신은 지금<br><em>몇 도</em>입니까</h1>
-    <p>해당되는 것을 전부 체크하라.<br>당신의 유형이 나온다.</p>
-  </div>
-  <div class="prog"><div class="prog-fill" id="pf" style="width:0%"></div></div>
-  <div class="sec-label">나에게 해당되는 것을 전부 골라라</div>
-  <div class="list" id="list"></div>
-  <button class="btn" id="rbtn" disabled onclick="showResult()">내 유형 확인하기</button>
-  <p class="hint">1개 이상 체크하면 결과가 나옵니다</p>
+
+<header class="header">
+  <p class="label-top">청춘℃ 유형 진단 — Entropy Self-Assessment</p>
+  <h1 class="title-main">당신은 지금<br><em>몇 도</em>입니까</h1>
+  <p class="subtitle">25개 항목 · 엔트로피 자가 측정 체크리스트</p>
+</header>
+
+<div class="instruction-block">
+  <p class="instruction-text">
+    해당되는 것을 <strong>전부</strong> 체크하라.<br>
+    당신의 상태(Phase)가 나온다.
+  </p>
 </div>
 
-<div class="result" id="result">
-  <div class="hd">
-    <div class="hd-tag">진단 결과</div>
-    <h1>당신은<br><em id="rname-h">○○형</em>입니다</h1>
-  </div>
-  <div class="rcard">
-    <div class="rhead">
-      <div class="rzone" id="rzone"></div>
-      <div class="rtype" id="rtype"></div>
-      <div class="rtag" id="rtag"></div>
+<div class="sections-wrap" id="quiz">
+
+  <!-- SECTION A -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-tag">Section A</span>
+      <span class="section-title">공간 엔트로피</span>
+      <span class="section-desc">무질서는 눈에 보인다</span>
     </div>
-    <div class="rbody">
-      <div class="rdesc" id="rdesc"></div>
-      <div class="rch">
-        <div class="rch-lbl">당신을 위한 챕터</div>
-        <div class="rch-title" id="rch"></div>
-        <div class="rch-q" id="rq"></div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">의자 옷걸이 현상</div>
+        <div class="item-desc">방 한구석 의자나 운동기구 위에 입었던 옷과 빨래가 뒤섞여 산을 이루고 있다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">설거지 지연</div>
+        <div class="item-desc">싱크대 속 그릇을 바로 씻지 않고, '물에 불려 놓는다'는 핑계로 반나절 이상 방치한다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">발굴 작업</div>
+        <div class="item-desc">외출할 때마다 지갑, 차 키, 이어폰을 찾느라 "어디 뒀더라?" 하며 5분 이상 허비한다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">디지털 쓰레기장</div>
+        <div class="item-desc">스마트폰 갤러리에 스크린샷과 연사 사진이 수천 장 쌓여 있고, 정리할 엄두가 안 나 그대로 둔다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">알림 지옥</div>
+        <div class="item-desc">카카오톡, 메일, 앱 푸시 알림에 '99+' 혹은 수십 개의 빨간 숫자가 떠 있지만 무감각하다.</div>
       </div>
     </div>
   </div>
-  <div class="share-row">
-    <button class="sbtn" onclick="copyR()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-      결과 복사
-    </button>
-    <button class="sbtn" onclick="shareR()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      공유하기
-    </button>
+
+  <!-- SECTION B -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-tag">Section B</span>
+      <span class="section-title">시간 엔트로피</span>
+      <span class="section-desc">시간은 비가역적으로 흐른다</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">스누즈 중독</div>
+        <div class="item-desc">알람을 한 번에 끄고 일어나는 일이 드물다. 5분 간격으로 알람을 3개 이상 맞춰놓고 밍기적거린다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">도파민 좀비</div>
+        <div class="item-desc">숏폼(릴스, 숏츠, 틱톡)을 보기 시작하면, 정신 차렸을 때 최소 30분이 삭제되어 있다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">벼락치기 의존</div>
+        <div class="item-desc">마감이 코앞에 닥쳐서 공포(Cortisol)를 느껴야만 비로소 일에 착수한다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">만성 지각</div>
+        <div class="item-desc">약속 시간에 딱 맞춰 도착하기보다는 5분, 10분씩 늦으며 "거의 다 왔어"라고 거짓말한다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">취침 지연</div>
+        <div class="item-desc">피곤해서 눈이 감기는데도, 오늘 하루가 아쉬워 스마트폰을 붙들고 억지로 깨어 있다.</div>
+      </div>
+    </div>
   </div>
-  <button class="rbtn" onclick="retry()">↺ 다시 진단하기</button>
+
+  <!-- SECTION C -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-tag">Section C</span>
+      <span class="section-title">신체 엔트로피</span>
+      <span class="section-desc">에너지를 담는 그릇의 균열</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">탄수화물 중독</div>
+        <div class="item-desc">제대로 된 식사보다 빵, 과자, 배달 음식 등 정제 탄수화물로 끼니를 때우는 빈도가 높다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">운동량 제로</div>
+        <div class="item-desc">숨 쉬는 것 외에 의도적으로 땀을 흘리는 운동을 한 기억이 2주 이상 되었다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">만성 피로</div>
+        <div class="item-desc">자고 일어났을 때 "개운하다"는 느낌보다 "몸이 무겁다, 더 자고 싶다"는 생각이 지배적이다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">자세 붕괴</div>
+        <div class="item-desc">지금 이 글을 읽는 순간에도 거북목을 하거나, 척추가 구부정한 자세로 앉아/누워 있다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">야행성 착각</div>
+        <div class="item-desc">밤에는 눈이 말똥말똥하고 낮에는 멍하다. 낮밤이 바뀌어 생체 리듬의 무질서도가 높다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION D -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-tag">Section D</span>
+      <span class="section-title">정신 엔트로피</span>
+      <span class="section-desc">뇌내의 브라운 운동</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">결정 장애</div>
+        <div class="item-desc">점심 메뉴 고르기부터 인생의 진로까지, 선택하는 데 과도한 에너지를 쓰고 결국 남의 의견을 따른다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">비교 지옥</div>
+        <div class="item-desc">SNS 속 타인의 화려한 삶과 나의 현실을 비교하며 스스로 비참해지는 감정을 자주 느낀다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">걱정의 늪</div>
+        <div class="item-desc">일어나지 않은 일에 대한 걱정(시뮬레이션) 때문에 정작 현재 해야 할 일에 집중하지 못한다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">과거 집착</div>
+        <div class="item-desc">"그때 그걸 했어야 했는데" 하며 이미 지나간 일을 계속 되감기 한다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">멀티태스킹의 덫</div>
+        <div class="item-desc">밥 먹으며 유튜브 보고, 일하며 카톡하는 산만한 상태가 기본값이다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION E -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-tag">Section E</span>
+      <span class="section-title">실행 엔트로피</span>
+      <span class="section-desc">마찰력에 굴복한 상태</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">장비병</div>
+        <div class="item-desc">무언가 시작할 때 장비나 책부터 사지만, 정작 그것을 제대로 활용해 본 적은 거의 없다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">작심삼일</div>
+        <div class="item-desc">새해 목표나 월초 계획을 세우지만, 3일 이상 지속된 루틴이 현재 하나도 없다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">완벽주의 핑계</div>
+        <div class="item-desc">"제대로 할 거 아니면 안 하는 게 나아"라고 말하지만, 사실은 실패가 두려워 시작조차 안 하고 있다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">아가리 파이터</div>
+        <div class="item-desc">"나 이거 할 거야", "나 유튜버 될 거야"라고 입으로는 떠들지만, 실제 결과물은 0이다.</div>
+      </div>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="item-check"></div>
+      <div class="item-body">
+        <div class="item-name">학습 중독</div>
+        <div class="item-desc">자기계발서나 강의는 열심히 듣지만, 듣는 순간의 고양감만 즐길 뿐 내 삶에 적용한 것은 없다.</div>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+<!-- STICKY BAR -->
+<div class="counter-bar">
+  <span class="counter-label">체크</span>
+  <span class="counter-num" id="count">0</span>
+  <span class="counter-label">/ 25</span>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress"></div>
+  </div>
+  <button class="btn-diagnose" id="diagBtn" onclick="showResult()">진단 결과 →</button>
 </div>
+
+<!-- RESULT OVERLAY -->
+<div class="result-overlay" id="resultOverlay">
+  <div class="result-inner" id="resultInner">
+    <!-- dynamically filled -->
+  </div>
+</div>
+
+<div class="copy-toast" id="toast">링크가 복사되었습니다</div>
 
 <script>
-const WADIZ_URL = 'https://www.wadiz.kr/web/wcomingsoon/rwd/389397';
+let checked = 0;
 
-const items=[
-  {t:"도파민 좀비",b:"숏폼을 보기 시작하면 정신 차렸을 때 30분이 사라져 있다.",types:["공회전형","기생부하형"]},
-  {t:"장비병",b:"시작하기 전에 장비나 책부터 산다. 제대로 쓴 적은 거의 없다.",types:["과적형"]},
-  {t:"완벽주의 핑계",b:"\"제대로 할 거 아니면 안 하는 게 나아.\" 사실은 시작이 두려운 것이다.",types:["과적형","대포형"]},
-  {t:"아가리 파이터",b:"\"나 이거 할 거야\"라고 말하지만 실제 결과물은 0이다.",types:["공회전형","활성화에너지 미달형"]},
-  {t:"작심삼일",b:"새해 목표, 월초 계획. 3일 이상 지속된 루틴이 지금 하나도 없다.",types:["활성화에너지 미달형"]},
-  {t:"학습 중독",b:"강의와 책은 열심히 듣는다. 듣는 순간의 고양감만 즐길 뿐 삶에 적용한 건 없다.",types:["과적형","공회전형"]},
-  {t:"알림 지옥",b:"카카오톡, 앱 푸시에 빨간 숫자가 99+ 떠 있지만 무감각하다.",types:["기생부하형"]},
-  {t:"멀티태스킹의 덫",b:"밥 먹으며 유튜브 보고, 일하며 카톡한다. 산만한 상태가 기본값이다.",types:["공회전형","감속재형"]},
-  {t:"만성 피로",b:"자고 일어났을 때 \"개운하다\"보다 \"더 자고 싶다\"가 지배적이다.",types:["기생부하형"]},
-  {t:"비교 지옥",b:"SNS 속 타인의 삶과 나의 현실을 비교하며 스스로 비참해지는 감정이 자주 든다.",types:["열평형형"]},
-  {t:"결정 장애",b:"점심 메뉴부터 진로까지, 선택하는 데 과도한 에너지를 쓰고 결국 남의 의견을 따른다.",types:["과적형","감속재형"]},
-  {t:"벼락치기 의존",b:"마감이 코앞에 닥쳐 심장이 쫄깃해져야만 비로소 일에 착수한다.",types:["활성화에너지 미달형"]},
-  {t:"만성 지각",b:"약속 시간에 5~10분씩 늦으며 \"거의 다 왔어\"라고 거짓말한다.",types:["미루기형"]},
-  {t:"과거 집착",b:"\"그때 그걸 했어야 했는데.\" 이미 지나간 일을 계속 되감기한다.",types:["열평형형","미루기형"]},
-  {t:"걱정의 늪",b:"일어나지 않은 일에 대한 걱정 때문에 정작 지금 해야 할 일에 집중을 못 한다.",types:["감속재형"]},
-  {t:"요행 대기",b:"언젠가 기회가 올 거라고 생각한다. 한 방이 있을 것 같다. 근데 준비는 안 하고 있다.",types:["요행형"]},
-  {t:"혼자 버팀",b:"도움을 받으면 빚지는 것 같다. 연결하면 더 빠를 것 같은데 혼자 버티고 있다.",types:["고립계형"]},
-  {t:"나중에 하면 돼",b:"조금 더 여유가 생기면 시작하려고 한다. 그 나중이 온 적이 없다.",types:["미루기형"]},
-  {t:"조용한 공포",b:"분명히 하고 있는데 달라진 게 없다. 이게 맞는 건지 확인할 방법이 없어서 그냥 하고 있다.",types:["임계점형","잠열 구간형"]},
-  {t:"중간 점검 중독",b:"잘 되고 있는지 자꾸 확인하고 싶어진다. 확인할 때마다 불안해지는데 또 확인한다.",types:["감속재형","임계점형"]},
-  {t:"비교 자동화",b:"SNS를 안 보려고 해도 결국 본다. 보고 나면 내가 너무 느린 것 같다.",types:["임계점형","열평형형"]},
-  {t:"멈추면 무너질 것 같은 느낌",b:"쉬면 다 리셋될 것 같아서 쉬지 못한다. 쉬는 동안에도 뭔가 해야 할 것 같다.",types:["연쇄반응형","잠열 구간형"]},
-  {t:"여기까지 왔는데",b:"포기하자니 지금까지 한 게 아깝고, 계속하자니 확신이 없다. 그래서 그냥 하고 있다.",types:["임계점형","잠열 구간형"]},
-  {t:"성공 공포증",b:"뭔가 되고 있는데 언제 다시 멈출지 모른다는 생각이 먼저 든다.",types:["연쇄반응형"]},
-  {t:"가속 불안",b:"잘 되고 있는데 오히려 예전보다 더 긴장된다. 잘 될수록 잃을 게 많아지는 것 같다.",types:["연쇄반응형"]},
-];
-
-const types={
-  "공회전형":{zone:"ZONE B — 공회전 구간",tag:"열심히 하는데 아무 데도 안 간다",desc:"유튜브도 하고 싶고, 부업도 해보고 싶고, 자격증도 따야 하고, 운동도 시작해야 한다.\n전부 중요하다. 전부 하고 있다. 근데 하나도 제대로 되는 게 없다.\n\n하루가 끝나면 분명히 바빴는데 뭘 했는지 모르겠다.\n열심히 한다고 말하는데 보여줄 게 없다.\n게으른 것도 아닌데 결과가 없는 게 더 억울하다.\n\n문제는 노력이 아니다.\n노력이 너무 많은 곳으로 흩어지고 있는 것이다.",ch:"Ch11 — 임계 질량을 설계하라",q:"전부 중요하면 아무것도 중요하지 않다. 하나만 남겨라."},
-  "과적형":{zone:"ZONE B — 공회전 구간",tag:"꿈은 큰데 시작을 못 한다",desc:"하고 싶은 건 분명하다. 방향도 있다. 근데 시작이 안 된다.\n강의를 하나 더 들었다. 책을 한 권 더 읽었다. 노트에 계획을 더 정교하게 썼다.\n근데 여전히 시작을 못 했다.\n\n준비할수록 오히려 더 못 할 것 같은 느낌이 든다.\n완벽하게 시작하고 싶은데 완벽한 타이밍이 오질 않는다.\n\n사실 알고 있다.\n준비가 부족한 게 아니라는 걸. 시작이 두려운 것이다.",ch:"Ch5, Ch6 — 질량을 줄여라 / 점화하라",q:"완벽한 준비를 기다리는 동안, 출발선은 점점 멀어지고 있다."},
-  "기생부하형":{zone:"ZONE B — 공회전 구간",tag:"열심히 하는데 에너지가 없다",desc:"분명히 노력하고 있다. 근데 항상 지쳐 있다.\n뭔가를 시작하려고 하면 이미 에너지가 바닥나 있다.\n\n만나고 나면 이유 없이 무거워지는 사람이 있다.\n알림이 오면 하던 일을 멈추게 된다.\n안 나가도 되는데 눈치 때문에 나가는 모임이 있다.\n\n정작 나를 위한 일을 할 때는 이미 남은 게 없다.",ch:"Ch14, Ch15 — 개방계 / 치명적 취약점이 감지되었습니다",q:"노력이 부족한 게 아니다. 에너지가 엉뚱한 곳으로 새고 있는 것이다."},
-  "임계점형":{zone:"ZONE A — 점화 구간",tag:"열심히 하는데 변화가 안 보인다",desc:"분명히 하고 있다. 꾸준히 하고 있다. 근데 달라진 게 없다.\n주변 사람들은 앞으로 가는 것 같은데 나만 제자리인 것 같다.\n\n열심히 한다고 말하는데 보여줄 결과가 없다.\n주변에서 \"그거 돼?\"라고 물어볼 때 대답이 궁색하다.\n\n근데 멈추지는 못하겠다.\n여기서 그만두면 지금까지 한 게 다 사라지는 것 같아서.",ch:"Ch8, Ch9 — 잠열 / 핵비등",q:"변화가 안 보이는 게 실패가 아니다. 끓기 직전이 가장 조용하다."},
-  "연쇄반응형":{zone:"ZONE A — 점화 구간",tag:"터졌다. 근데 왜 이렇게 불안하지",desc:"뭔가 되고 있다. 반응이 오고 있다.\n객관적으로 잘 되고 있는데 이상하게 불안하다.\n언제 다시 멈출지 모른다는 생각이 든다.\n\n더 해야 할 것 같다. 더 빠르게 가야 할 것 같다.\n잘 되고 있는데 오히려 예전보다 더 긴장된다.\n번아웃이 오고 있는 것 같은데 멈추면 다 사라질 것 같아서 못 멈추겠다.\n\n잘 되고 있는 게 맞는데, 왜 이렇게 불안한지 모르겠다.",ch:"Ch13 — 카르노 효율",q:"꺼지지 않는 엔진은 없다. 확 끓었다가 확 식어야 다시 폭발한다."},
-  "잠열 구간형":{zone:"ZONE C — 잠열 구간",tag:"하고 있는데 왜 아무것도 안 변하는 것 같지",desc:"분명히 하고 있다. 멈추지도 않았다. 근데 달라진 게 없다.\n이게 맞는 건지, 그냥 제자리걸음인 건지 구분이 안 된다.\n\n포기하자니 여기까지 온 게 아깝고, 계속하자니 확신이 없다.\n그냥 묵묵히 하고 있는데 이게 맞는 건지 자꾸 의심된다.\n\n근데 멈추진 않고 있다.\n그게 지금 유일하게 확실한 것이다.",ch:"Ch8 — 잠열",q:"지금 아무것도 안 변하는 것 같다면, 가장 중요한 구간을 지나고 있는 것이다."},
-  "감속재형":{zone:"ZONE C — 잠열 구간",tag:"하고 있는데 왜 이렇게 느리지",desc:"방향은 있다. 하고도 있다. 근데 속도가 안 난다.\n결과가 안 보이면 방법을 바꾼다. 바꿨는데 또 안 되면 또 바꾼다.\n\n잘 되고 있는지 자꾸 확인하고 싶어진다. 확인할 때마다 불안해진다.\n이것도 해야 할 것 같고 저것도 해야 할 것 같아서\n동시에 하다 보면 다 느려진다.\n\n문제가 밖에 있는 줄 알았는데,\n사실 내가 내 속도를 늦추고 있었다.",ch:"Ch11, Ch12 — 임계 질량 / 음성 피드백",q:"전부 바꾸려 하지 마라. 가장 큰 것 하나만 없애도 속도는 달라진다."},
-  "대포형":{zone:"ZONE C — 잠열 구간",tag:"완벽하게 준비했는데 왜 빗나갔지",desc:"준비를 잘 했다. 계획도 탄탄했다. 이번엔 진짜 될 것 같았다. 근데 안 됐다.\n그래서 다시 처음부터 준비한다.\n\n결과가 나쁘면 계획 자체를 버린다.\n수정하는 게 아니라 새로 시작한다.\n그래서 항상 처음부터 다시 시작하는 느낌이다.\n\n열심히 하고 있는데 왜 이렇게 제자리인지 모르겠다.\n사실 제자리가 아니라 계속 처음으로 돌아오고 있는 것이다.",ch:"Ch12 — 음성 피드백",q:"빗나간 게 실패가 아니다. 수정하지 않는 것이 실패다."},
-  "열평형형":{zone:"ZONE D — 고립 구간",tag:"언제부터 이렇게 됐지",desc:"꿈이 있었다. 하고 싶은 게 있었다.\n근데 어느 순간부터 그 얘기를 안 하게 됐다.\n주변 사람들이랑 비슷하게 살고 있다.\n\n뭔가 해보려고 하면 \"그게 돼?\"라는 말이 먼저 들린다.\n어느 순간부터 나도 그 말을 스스로에게 하고 있다.\n\n근데 가끔 그냥 찔린다.\n이렇게 살면 안 될 것 같다는 느낌.",ch:"Ch2, Ch14 — 비가역성 / 개방계",q:"내가 식은 게 아니다. 주변이 나를 식혔다."},
-  "고립계형":{zone:"ZONE D — 고립 구간",tag:"혼자 하면 된다고 생각했다",desc:"남한테 기대는 게 싫다. 혼자 할 수 있다고 생각한다. 그래서 혼자 한다.\n혼자 고민하고, 혼자 버티고, 혼자 쌓아간다.\n\n근데 어느 순간 한계가 왔다.\n연결하면 더 빠를 수 있다는 걸 알면서도 연결이 불편하다.\n\n혼자 버티는 게 강한 게 아니라는 걸 알고 있다.\n근데 연결하는 법을 모르겠다.",ch:"Ch14 — 개방계",q:"혼자 만든 건 혼자만큼만 커진다. 연결되는 순간 증폭된다."},
-  "활성화에너지 미달형":{zone:"ZONE D — 고립 구간",tag:"시작만 하면 될 것 같은데 시작을 못 하겠다",desc:"하고 싶다. 해야 한다는 것도 안다. 오늘 하려고 했다. 근데 또 못 했다.\n내일은 할 것 같다. 근데 내일도 이 생각을 할 것 같다.\n\n자극을 받으면 당장 할 것 같다.\n불이 붙으면 오늘은 진짜 할 것 같다.\n근데 막상 시작하려고 하면 뭔가 막힌다.\n\n사실 의지 문제가 아니다.\n시작하는 방법이 잘못된 것이다.",ch:"Ch6, Ch7 — 활성화 에너지 / 정지마찰",q:"시작을 못 하는 건 의지가 약한 게 아니다. 첫 발을 너무 크게 내딛으려는 것이다."},
-  "미루기형":{zone:"ZONE D — 고립 구간",tag:"나중에 하면 된다고 생각한다",desc:"지금 당장은 아니어도 된다. 나중에 하면 된다.\n조금 더 여유가 생기면, 이것만 끝나면, 다음 달부터 시작하면 된다.\n항상 조건이 있다.\n\n근데 그 나중이 온 적이 없다.\n1년 전에도 나중에 하려고 했다. 지금도 나중을 기다리고 있다.\n\n시간이 해결해줄 거라고 생각했다.\n근데 시간은 아무것도 해결해주지 않는다.",ch:"Ch3 — 비가역성",q:"흘러간 시간은 돌아오지 않는다. 나중은 없다. 지금뿐이다."},
-  "요행형":{zone:"ZONE D — 고립 구간",tag:"언젠가 한 방이 있을 거라고 생각한다",desc:"열심히 안 해도 될 것 같다.\n언젠가 기회가 올 것 같다.\n지금 당장 힘들게 하지 않아도 어떻게든 될 것 같다.\n\n주변에 운 좋게 된 사람이 있다. 나도 그럴 수 있을 것 같다.\n근데 그 사람이 보이지 않는 곳에서 얼마나 했는지는 모른다.\n\n한 방을 기다리는 동안 아무것도 쌓이지 않는다.",ch:"Ch4 — 맥스웰의 도깨비",q:"요행은 없다. 보이지 않는 곳에서 쌓은 것만 남는다."},
-};
-
-// FIX 1: 유형별 항목 수 계산 (비율 기반 점수)
-const typeCount={};
-items.forEach(item=>item.types.forEach(t=>{typeCount[t]=(typeCount[t]||0)+1;}));
-
-let on=new Set();
-const list=document.getElementById('list');
-items.forEach((item,i)=>{
-  const el=document.createElement('div');
-  el.className='item';
-  el.innerHTML=`<div class="box"><svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></div><div><div class="item-title">${item.t}</div><div class="item-body">${item.b}</div></div>`;
-  el.onclick=()=>{
-    if(on.has(i)){on.delete(i);el.classList.remove('on');}
-    else{on.add(i);el.classList.add('on');}
-    document.getElementById('pf').style.width=Math.min(on.size/8*100,100)+'%';
-    document.getElementById('rbtn').disabled=on.size===0;
-  };
-  list.appendChild(el);
-});
-
-function showResult(){
-  // FIX 1: 비율 기반 점수 계산 — 항목 수 많은 유형이 유리하지 않도록
-  const scores={};
-  on.forEach(i=>items[i].types.forEach(t=>{
-    scores[t]=(scores[t]||0)+(1/typeCount[t]);
-  }));
-  const top=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
-  const d=types[top];
-  document.getElementById('rname-h').textContent=top;
-  document.getElementById('rzone').textContent=d.zone;
-  document.getElementById('rtype').textContent=top;
-  document.getElementById('rtag').textContent=d.tag;
-  document.getElementById('rdesc').textContent=d.desc;
-  document.getElementById('rch').textContent=d.ch;
-  document.getElementById('rq').textContent=d.q;
-  document.getElementById('quiz').style.display='none';
-  const r=document.getElementById('result');
-  r.style.display='block';
-  window.scrollTo(0,0);
+function toggle(el) {
+  el.classList.toggle('checked');
+  checked = document.querySelectorAll('.item.checked').length;
+  document.getElementById('count').textContent = checked;
+  document.getElementById('progress').style.width = (checked / 25 * 100) + '%';
+  const btn = document.getElementById('diagBtn');
+  btn.classList.toggle('active', checked >= 1);
 }
 
-function copyR(){
-  const t=document.getElementById('rtype').textContent;
-  const d=types[t];
-  // FIX 2: 공유 텍스트에 Wadiz 링크 추가
-  const text=`[청춘℃ 유형 진단]\n나는 ${t}\n"${d.tag}"\n\n${d.q}\n\n👉 ${WADIZ_URL}`;
-  navigator.clipboard.writeText(text).then(()=>{
-    const b=event.target.closest('.sbtn');
-    const o=b.innerHTML;b.innerHTML='✓ 복사됨';
-    setTimeout(()=>b.innerHTML=o,2000);
+const RESULTS = {
+  plasma: {
+    stateClass: 'state-plasma',
+    korean: '플라즈마',
+    english: 'Plasma State',
+    range: '20 ~ 25개',
+    headline: '완전 붕괴',
+    statusLabel: '현재 상태',
+    statusTitle: '통제 불능',
+    body: `의지력은 바닥났고, 환경은 당신을 공격하고 있다.
+
+당신은 지금 "게으른 것"이 아니다. 시스템 자체가 과부하로 녹아내리고 있는 것이다. 이 상태에서 "더 열심히 해야지"라고 다짐하는 건, 엔진이 과열된 차에 엑셀을 더 밟는 것과 같다. 폭발한다.`,
+    rxLabel: '처방',
+    rxTitle: '지금 당장 이 책을 덮어라.',
+    rx: `농담이 아니다. 이 책은 시스템을 재설계하는 책이지, 붕괴 직전의 사람을 더 몰아붙이는 책이 아니다.
+
+오늘 당신이 할 일은 딱 두 가지다.
+
+첫째, 잠을 자라. 제대로. 알람 없이. 몸이 원하는 만큼.
+둘째, 바닥이 보이게 치워라. 발 디딜 공간만 확보해라. 이것조차 힘들면, 쓰레기봉투 하나만 채워라. 그것만으로 충분하다.
+
+그리고 이 책은 내일 다시 펴라. 도망치는 게 아니다. 후퇴가 아니라 정비다. 전투기도 연료가 떨어지면 귀환한다.
+
+지금 당신에게 필요한 건 각성이 아니라 회복이다. 이 책은 도망가지 않는다. 여기서 기다리고 있을 것이다.`
+  },
+  gas: {
+    stateClass: 'state-gas',
+    korean: '기체',
+    english: 'Gas State',
+    range: '13 ~ 19개',
+    headline: '고위험 산만',
+    statusLabel: '현재 상태',
+    statusTitle: '자유로운 영혼이라고 착각하지 마라. 그저 산만한 것이다.',
+    body: `기체 분자는 빠르게 움직인다. 하지만 방향이 없다. 여기저기 부딪히며 에너지를 낭비할 뿐, 어디로도 가지 못한다.
+
+당신도 그렇다. 하고 싶은 건 많다. 관심사도 다양하다. 새로운 것에 쉽게 끌리고, 시작은 잘한다. 문제는 끝을 본 적이 없다는 것이다. 열정은 있는데 끈기가 없고, 아이디어는 넘치는데 결과물이 없다.
+
+이유는 간단하다. 에너지가 새고 있다. 기체는 그릇 없이는 형태를 유지할 수 없다. 당신에게 지금 필요한 건 새로운 열정이 아니라, 에너지를 담을 그릇(루틴, 구조, 제한)이다.`,
+    rxLabel: '처방',
+    rxTitle: '새로운 일을 벌이지 마라.',
+    rx: `당분간 새로운 프로젝트, 새로운 취미, 새로운 도전은 금지다. 당신의 문제는 부족함이 아니라 과잉이다.
+
+오늘 당신이 할 일은 이것이다.
+
+벌려놓은 일 중 3가지를 공식적으로 '포기'하라. 읽다 만 책, 듣다 만 강의, 시작하다 만 프로젝트. 그것들이 당신의 RAM을 잡아먹고 있다.
+
+"언젠가 할 거야"는 거짓말이다. 안 할 거면 공식적으로 끝내라. 포기는 실패가 아니다. 에너지 재배치다.
+
+초점 없는 레이저는 그냥 손전등이다.`
+  },
+  liquid: {
+    stateClass: 'state-liquid',
+    korean: '액체',
+    english: 'Liquid State',
+    range: '6 ~ 12개',
+    headline: '유동적 불안',
+    statusLabel: '현재 상태',
+    statusTitle: '남들만큼은 살고 있다. 하지만 언제 흘러내릴지 모른다.',
+    body: `액체는 형태가 있다. 하지만 자기 형태가 아니다. 담긴 그릇의 모양을 따라갈 뿐이다.
+
+당신도 그렇다. 회사에서 시키면 한다. 친구가 부르면 간다. 외부에서 압력이 가해지면 움직이고, 압력이 사라지면 멈춘다. 솔직히, 나쁘진 않다. 하지만 그게 전부라면, 당신은 평생 그릇의 모양대로만 살게 된다.
+
+이대로 가면 망하진 않는다. 대신 평범하게 늙는다. 그게 만족스럽다면 이 책을 덮어도 좋다. 하지만 새벽에 천장을 보며 "이게 맞나?"라고 묻는다면, 당신은 아직 답을 찾고 있는 것이다.`,
+    rxLabel: '처방',
+    rxTitle: '임계점 돌파.',
+    rx: `액체가 기체가 되려면, 100℃에 도달해야 한다. 99℃에서는 아무 일도 일어나지 않는다. 겉보기엔 뜨거워 보이지만, 상태는 여전히 같다.
+
+오늘 당신이 할 일은 이것이다.
+한 가지 영역에서 '과잉'을 허락하라. 균형 잡힌 삶은 잠시 잊어라.
+
+한 달만, 아니 2주만, 단 한 가지에 불균형하게 에너지를 쏟아라. 운동이든, 글쓰기든, 공부든.
+
+"다른 건 어떡해요?" 걱정하지 마라. 한 번 끓어본 사람은 다시 끓는 법을 안다. 문제는 당신이 단 한 번도 끓어본 적이 없다는 것이다. 먼저 끓어보라. 균형은 그 다음이다.`
+  },
+  solid: {
+    stateClass: 'state-solid',
+    korean: '고체',
+    english: 'Solid State',
+    range: '0 ~ 5개',
+    headline: '질서 정연',
+    statusLabel: '현재 상태',
+    statusTitle: '단단하다. 이제 그 단단함으로 세상을 깨뜨릴 차례다.',
+    body: `고체는 형태가 있다. 자기 형태다. 외부 압력에 쉽게 변형되지 않는다.
+
+축하한다. 당신은 상위 몇 %에 해당하는 자기 통제력을 가지고 있다. 대부분의 자기계발서는 당신에게 가르쳐줄 게 없다.
+
+하지만 한 가지 경고가 있다. 너무 굳으면 부러진다.
+
+정해진 루틴, 익숙한 방식, 검증된 패턴 바깥으로 나가는 것이 불편해진다. 그리고 어느 순간, 의문이 찾아온다. "다 제대로 하고 있는 것 같은데… 왜 재미가 없지?"`,
+    rxLabel: '처방',
+    rxTitle: '시스템 유지를 넘어, 창조적 파괴를 시도하라.',
+    rx: `이 책의 앞부분은 빠르게 넘겨도 좋다. 이미 체득한 것들이니까.
+
+대신, 이것만은 해봐라. 일부러 비효율을 허락하라.
+한 달에 하루, 계획 없이 보내라. 아무 목표 없이 걸어라. 결과를 기대하지 않는 대화를 나눠라.
+
+당신의 시스템은 이미 완성됐다. 이제 그 시스템을 언제 끄는지도 알아야 한다.
+
+그리고 한 가지 더. 이제는 규모를 키울 때다. 팀을 이끌어라. 프로젝트를 만들고, 후배를 가르쳐라. 당신의 그 단단함으로 무엇을 깨뜨릴지 정하라.`
+  }
+};
+
+function showResult() {
+  const n = checked;
+  let key;
+  if (n >= 20) key = 'plasma';
+  else if (n >= 13) key = 'gas';
+  else if (n >= 6) key = 'liquid';
+  else key = 'solid';
+
+  const r = RESULTS[key];
+  const overlay = document.getElementById('resultOverlay');
+  const inner = document.getElementById('resultInner');
+
+  inner.className = 'result-inner ' + r.stateClass;
+  inner.innerHTML = `
+    <p class="result-tag">엔트로피 자가 측정 결과</p>
+    <p class="result-score">총 ${n}개 체크 / 25 &nbsp;·&nbsp; 해당 구간: ${r.range}</p>
+    <h2 class="result-state-label">${r.korean}(${r.english.split(' ')[0]})</h2>
+    <p class="result-state-sub">${r.headline}</p>
+    <div class="result-divider"></div>
+    <p class="result-status-label">${r.statusLabel}</p>
+    <p class="result-status-text">${r.statusTitle}</p>
+    <div class="result-body">${r.body}</div>
+    <p class="result-rx-label">${r.rxLabel}</p>
+    <p class="result-rx-title">${r.rxTitle}</p>
+    <div class="result-rx-body">${r.rx}</div>
+    <div class="result-actions">
+      <button class="btn-share" onclick="copyLink()">결과 공유하기</button>
+      <button class="btn-retry" onclick="retry()">↺ 다시 진단하기</button>
+    </div>
+  `;
+
+  overlay.classList.add('show');
+  overlay.scrollTop = 0;
+}
+
+function retry() {
+  document.getElementById('resultOverlay').classList.remove('show');
+  document.querySelectorAll('.item.checked').forEach(el => el.classList.remove('checked'));
+  checked = 0;
+  document.getElementById('count').textContent = '0';
+  document.getElementById('progress').style.width = '0%';
+  document.getElementById('diagBtn').classList.remove('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function copyLink() {
+  const url = 'https://urania-s-uni.github.io/uraniasuni/';
+  navigator.clipboard.writeText(url).then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
   });
 }
 
-function shareR(){
-  const t=document.getElementById('rtype').textContent;
-  const d=types[t];
-  // FIX 2: 공유 텍스트에 Wadiz 링크 추가
-  if(navigator.share){
-    navigator.share({
-      title:'청춘℃ 유형 진단',
-      text:`나는 ${t} — "${d.tag}"\n\n${d.q}`,
-      url: WADIZ_URL
-    });
-  } else {
-    copyR();
-  }
-}
-
-function retry(){
-  on.clear();
-  document.querySelectorAll('.item').forEach(el=>el.classList.remove('on'));
-  document.getElementById('pf').style.width='0%';
-  document.getElementById('rbtn').disabled=true;
-  document.getElementById('result').style.display='none';
-  document.getElementById('quiz').style.display='block';
-  window.scrollTo(0,0);
-}
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.section-block').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
